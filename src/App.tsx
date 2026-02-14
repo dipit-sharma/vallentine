@@ -115,47 +115,44 @@ export default function App() {
         </p>
       )}
 
-      {!accepted ? (
-        <>
-          <h1 className="title">{displayedText}</h1>
+      <div style={{ display: accepted ? "none" : "block" }}>
+        <h1 className="title">{displayedText}</h1>
 
-          <img
-            className="gif"
-            src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
-            alt="begging puppy"
-          />
+        <img
+          className="gif"
+          src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+          alt="begging puppy"
+        />
 
-          <button
-            className="yesButton"
-            style={{ transform: `scale(${yesScale})` }}
-            onClick={handleYes}
-          >
-            Yes 💕
-          </button>
+        <button
+          className="yesButton"
+          style={{ transform: `scale(${yesScale})` }}
+          onClick={handleYes}
+        >
+          Yes 💕
+        </button>
 
-          <button
-            className="noButton"
-            style={{ top: noPosition.top, left: noPosition.left }}
-            onMouseEnter={moveNoButton}
-          >
-            No 🙈
-          </button>
-        </>
-      ) : (
-        <>
-          <h1 className="title">YAYYYYY!!! 💖💖💖</h1>
+        <button
+          className="noButton"
+          style={{ top: noPosition.top, left: noPosition.left }}
+          onMouseEnter={moveNoButton}
+        >
+          No 🙈
+        </button>
+      </div>
+      <div style={{ display: accepted ? "block" : "none" }}>
+        <h1 className="title">YAYYYYY!!! 💖💖💖</h1>
 
-          <img
-            className="celebrationVideo"
-            src={me} // ← Put your video inside public folder
-            alt="me"
-          />
+        <img
+          className="celebrationVideo"
+          src={me} // ← Put your video inside public folder
+          alt="me"
+        />
 
-          <p className="subtitle">
-            You just made me the happiest person alive 🥰✨
-          </p>
-        </>
-      )}
+        <p className="subtitle">
+          You just made me the happiest person alive 🥰✨
+        </p>
+      </div>
     </div>
   );
 }
