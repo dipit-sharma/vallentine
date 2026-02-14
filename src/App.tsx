@@ -3,24 +3,17 @@
 import React, { useState, useEffect } from "react";
 import confetti from "canvas-confetti";
 import "./App.css";
-import m from "./assets/c.MOV";
+import me from "./assets/c8.gif";
 
 export default function App() {
   const [accepted, setAccepted] = useState(false);
   const [noPosition, setNoPosition] = useState({ top: "60%", left: "55%" });
   const [yesScale, setYesScale] = useState(1);
   const [displayedText, setDisplayedText] = useState("");
+  const [triedNo, setTriedNo] = useState(false);
+  const [showTease, setShowTease] = useState(false);
+
   const fullText = "Will you be my Valentine? 🥺💖";
-
-  const [musicStarted, setMusicStarted] = useState(false);
-  const audioRef = React.useRef(null);
-
-  const startMusic = () => {
-    if (!musicStarted && audioRef?.current?.play) {
-      audioRef.current.play();
-      setMusicStarted(true);
-    }
-  };
 
   // Typewriter Effect
   useEffect(() => {
@@ -53,6 +46,8 @@ export default function App() {
   }, []);
 
   const moveNoButton = () => {
+    setTriedNo(true); // She attempted No
+
     const randomTop = Math.random() * 80;
     const randomLeft = Math.random() * 80;
 
@@ -65,6 +60,10 @@ export default function App() {
   };
 
   const handleYes = () => {
+    if (!triedNo) {
+      setShowTease(true);
+      return;
+    }
     setAccepted(true);
 
     confetti({
@@ -75,21 +74,20 @@ export default function App() {
   };
 
   return (
-    <div className="container" onClick={startMusic}>
-      {/* Background Music */}
-      <audio ref={audioRef} loop>
-        <source
-          src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"
-          type="audio/mp3"
-        />
-      </audio>
-
+    <div className="container">
       {/* Floating Hearts */}
       <div className="hearts">
         {Array.from({ length: 20 }).map((_, i) => (
           <span key={i}>💖</span>
         ))}
       </div>
+
+      {showTease && !accepted! && (
+        <p className="teaseMessage">
+          I knew you would click Yes right away 😌💖 <br />
+          Try going for No just for fun 🙈
+        </p>
+      )}
 
       {!accepted ? (
         <>
@@ -121,13 +119,10 @@ export default function App() {
         <>
           <h1 className="title">YAYYYYY!!! 💖💖💖</h1>
 
-          <video
+          <img
             className="celebrationVideo"
-            src={m} // ← Put your video inside public folder
-            autoPlay
-            loop
-            muted={true}
-            controls={false}
+            src={me} // ← Put your video inside public folder
+            alt="me"
           />
 
           <p className="subtitle">
