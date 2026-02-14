@@ -12,6 +12,7 @@ export default function App() {
   const [displayedText, setDisplayedText] = useState("");
   const [triedNo, setTriedNo] = useState(false);
   const [showTease, setShowTease] = useState(false);
+  const [isLaptop, setIsLaptop] = useState(true);
 
   const fullText = "Will you be my Valentine? 🥺💖";
 
@@ -72,6 +73,31 @@ export default function App() {
       origin: { y: 0.6 },
     });
   };
+
+  useEffect(() => {
+    const checkDevice = () => {
+      if (window.innerWidth < 1024) {
+        setIsLaptop(false);
+      } else {
+        setIsLaptop(true);
+      }
+    };
+
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+
+    return () => window.removeEventListener("resize", checkDevice);
+  }, []);
+
+  if (!isLaptop) {
+    return (
+      <div className="mobileBlock">
+        <h1>Oops! 🙈</h1>
+        <p>This love story is only meant to be viewed on a laptop 💻💖</p>
+        <p>Please open it on a bigger screen 🥺</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
